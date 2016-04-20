@@ -5,6 +5,7 @@ using System.Web.Http;
 using ODataService.Models;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
+using System.Web.Http.Cors;
 
 namespace ODataService
 {
@@ -12,13 +13,15 @@ namespace ODataService
     {
         public static void Register(HttpConfiguration config)
         {
-            ODataModelBuilder builder = new ODataConventionModelBuilder();
+            var corsAttr = new EnableCorsAttribute("*", "*", "*");
+
+            config.EnableCors(corsAttr);
+
+            var builder = new ODataConventionModelBuilder();
+
             builder.EntitySet<Product>("Products");
 
-            config.MapODataServiceRoute(
-                routeName: "ODataRoute",
-                routePrefix: null,
-                model: builder.GetEdmModel());
+            config.MapODataServiceRoute("ODataRoute", null, builder.GetEdmModel());
         }
     }
 }
