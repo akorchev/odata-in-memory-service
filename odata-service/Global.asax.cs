@@ -27,7 +27,9 @@ namespace ODataService
             if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
             {
                 HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "POST, PUT, PATCH, DELETE");
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "*");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
+
                 HttpContext.Current.Response.End();
             }
         }
