@@ -17,6 +17,12 @@ namespace ODataService.Controllers
             return db.Products.AsQueryable();
         }
 
+        [EnableQuery]
+        public SingleResult<Product> Get([FromODataUri] int key)
+        {
+            return SingleResult.Create<Product>(db.Products.Where(p => p.ID == key).AsQueryable());
+        }
+
         public IHttpActionResult Post(Product product)
         {
             if (!ModelState.IsValid)
